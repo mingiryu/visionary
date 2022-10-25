@@ -1,10 +1,8 @@
 package edu.cs371m.visionary
 
 import android.text.SpannableString
-import com.google.gson.GsonBuilder
-import com.google.gson.JsonDeserializationContext
-import com.google.gson.JsonDeserializer
-import com.google.gson.JsonElement
+import com.google.gson.*
+import com.google.gson.annotations.SerializedName
 import okhttp3.HttpUrl
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -16,40 +14,53 @@ import java.lang.reflect.Type
 
 interface DictionaryApi {
 
-    @GET("api/v2/entries/en/{word>}")
-    suspend fun getWordDefinitions(@Path("word") word: String)
+    @GET("api/v2/entries/en/{word}")
+    suspend fun getWordDefinitions(@Path("word") word: String): DefinitionsResponse
 
     class DefinitionsResponse(val data: List<Definition>)
 
-    class Definition(
+    data class Definition(
+        @SerializedName("word")
         val word: String,
+        @SerializedName("phonetic")
         val phonetic: String,
+        @SerializedName("phonetics")
         val phonetics: List<Phonetic>,
+        @SerializedName("origin")
         val origin: String,
+        @SerializedName("meanings")
         val meanings: List<Meaning>,
     )
 
-    class Phonetic(
+    data class Phonetic(
+        @SerializedName("text")
         val text: String,
+        @SerializedName("audio")
         val audio: String?
     )
 
-    class Meaning(
+    data class Meaning(
+        @SerializedName("partOfSpeech")
         val partOfSpeech: String,
+        @SerializedName("definitions")
         val definitions: List<MeaningDefinition>,
     )
 
-    class MeaningDefinition(
+    data class MeaningDefinition(
+        @SerializedName("definition")
         val definition: String,
+        @SerializedName("example")
         val example: String,
+        @SerializedName("synonyms")
         val synonyms: List<String>,
+        @SerializedName("antonyms")
         val antonyms: List<String>
     )
 
     // This class allows Retrofit to parse items in our model of type
     // SpannableString.
     class SpannableDeserializer : JsonDeserializer<SpannableString> {
-        // @Throws(JsonParseException::class)
+         @Throws(JsonParseException::class)
         override fun deserialize(
             json: JsonElement,
             typeOfT: Type,
