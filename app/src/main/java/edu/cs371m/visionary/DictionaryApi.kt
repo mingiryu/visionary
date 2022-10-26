@@ -15,28 +15,30 @@ import java.lang.reflect.Type
 interface DictionaryApi {
 
     @GET("api/v2/entries/en/{word}")
-    suspend fun getWordDefinitions(@Path("word") word: String): DefinitionsResponse
-
-    class DefinitionsResponse(val data: List<Definition>)
+    suspend fun getWordDefinitions(@Path("word") word: String): List<Definition>
 
     data class Definition(
         @SerializedName("word")
         val word: String,
-        @SerializedName("phonetic")
-        val phonetic: String,
         @SerializedName("phonetics")
         val phonetics: List<Phonetic>,
-        @SerializedName("origin")
-        val origin: String,
         @SerializedName("meanings")
         val meanings: List<Meaning>,
+        @SerializedName("license")
+        val license: License,
+        @SerializedName("sourceUrls")
+        val sourceUrls: List<String>
     )
 
     data class Phonetic(
         @SerializedName("text")
-        val text: String,
+        val text: String?,
         @SerializedName("audio")
-        val audio: String?
+        val audio: String?,
+        @SerializedName("sourceUrl")
+        val sourceUrl: String?,
+        @SerializedName("license")
+        val license: License?,
     )
 
     data class Meaning(
@@ -44,6 +46,10 @@ interface DictionaryApi {
         val partOfSpeech: String,
         @SerializedName("definitions")
         val definitions: List<MeaningDefinition>,
+        @SerializedName("synonyms")
+        val synonyms: List<String>,
+        @SerializedName("antonyms")
+        val antonyms: List<String>
     )
 
     data class MeaningDefinition(
@@ -57,10 +63,17 @@ interface DictionaryApi {
         val antonyms: List<String>
     )
 
+    data class License(
+        @SerializedName("name")
+        val name: String,
+        @SerializedName("url")
+        val url: String,
+    )
+
     // This class allows Retrofit to parse items in our model of type
     // SpannableString.
     class SpannableDeserializer : JsonDeserializer<SpannableString> {
-         @Throws(JsonParseException::class)
+        @Throws(JsonParseException::class)
         override fun deserialize(
             json: JsonElement,
             typeOfT: Type,
