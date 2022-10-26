@@ -18,28 +18,28 @@ class DictionaryApiTest {
 
     @Test
     fun test_word() {
-        assertEquals("hello", result!![0].word)
+        assertEquals("hello", result[0].word)
     }
 
     @Test
     fun test_phonetics() {
         assertEquals(
             "https://api.dictionaryapi.dev/media/pronunciations/en/hello-au.mp3",
-            result!![0].phonetics[0].audio
+            result[0].phonetics[0].audio
         )
         assertEquals(
             "https://commons.wikimedia.org/w/index.php?curid=75797336",
-            result!![0].phonetics[0].sourceUrl
+            result[0].phonetics[0].sourceUrl
         )
     }
 
     @Test
     fun test_meanings() {
-        assertEquals("noun", result!![0].meanings[0].partOfSpeech)
-        assertEquals("greeting", result!![0].meanings[0].synonyms[0])
+        assertEquals("noun", result[0].meanings[0].partOfSpeech)
+        assertEquals("greeting", result[0].meanings[0].synonyms[0])
         assertEquals(
             "\"Hello!\" or an equivalent greeting.",
-            result!![0].meanings[0].definitions[0].definition
+            result[0].meanings[0].definitions[0].definition
         )
     }
 
