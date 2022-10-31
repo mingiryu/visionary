@@ -38,8 +38,7 @@ class DictionaryApiTest {
         assertEquals("noun", result[0].meanings[0].partOfSpeech)
         assertEquals("greeting", result[0].meanings[0].synonyms[0])
         assertEquals(
-            "\"Hello!\" or an equivalent greeting.",
-            result[0].meanings[0].definitions[0].definition
+            "\"Hello!\" or an equivalent greeting.", result[0].meanings[0].definitions[0].definition
         )
     }
 
