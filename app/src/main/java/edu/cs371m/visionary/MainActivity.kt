@@ -6,6 +6,8 @@ import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.FragmentTransaction
+import androidx.fragment.app.commit
 import edu.cs371m.visionary.databinding.ActivityMainBinding
 import edu.cs371m.visionary.databinding.ContentMainBinding
 
@@ -20,6 +22,7 @@ class MainActivity : AppCompatActivity() {
         setSupportActionBar(activityMainBinding.toolbar)
         binding = activityMainBinding.contentMain
 
+        addHomeFragment()
         textEditorAction()
         goButtonOnClick()
     }
@@ -43,6 +46,15 @@ class MainActivity : AppCompatActivity() {
             if (word.isNotEmpty()) {
                 viewModel.setWord(word)
             }
+        }
+    }
+
+    private fun addHomeFragment() {
+        // No back stack for home
+        supportFragmentManager.commit {
+            add(R.id.main_frame, HomeFragment.newInstance(), "mainFragTag")
+            // TRANSIT_FRAGMENT_FADE calls for the Fragment to fade away
+            setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
         }
     }
 

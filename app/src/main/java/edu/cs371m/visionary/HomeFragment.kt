@@ -2,9 +2,14 @@ package edu.cs371m.visionary
 
 import android.os.Bundle
 import android.util.Log
+import android.view.KeyEvent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.EditorInfo
+import android.view.inputmethod.InputMethodManager
+import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat.getSystemService
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.DividerItemDecoration
@@ -37,7 +42,6 @@ class HomeFragment: Fragment() {
         return postRowAdapter
     }
 
-
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -50,7 +54,14 @@ class HomeFragment: Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         Log.d(javaClass.simpleName, "onViewCreated")
-        // XXX Write me
         val adapter = initAdapter(binding)
+
+        viewModel.observeWord().observe(viewLifecycleOwner) {
+            viewModel.netImages()
+        }
+
+        viewModel.observeImages().observe(viewLifecycleOwner) {
+            adapter.submitList(it)
+        }
     }
 }
