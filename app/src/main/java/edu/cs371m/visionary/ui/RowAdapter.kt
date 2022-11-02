@@ -43,6 +43,8 @@ class RowAdapter(private val viewModel: MainViewModel) :
 
         Picasso.get()
             .load(image.srcSmall)
+            .resize(500, 500)
+            .centerCrop()
             .into(binding.image)
 
         binding.image.setOnClickListener {

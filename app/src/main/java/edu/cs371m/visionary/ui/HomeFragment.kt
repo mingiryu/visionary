@@ -51,9 +51,9 @@ class HomeFragment: Fragment() {
         Log.d(javaClass.simpleName, "onViewCreated")
         val adapter = initAdapter(binding)
 
-//        viewModel.observeWord().observe(viewLifecycleOwner) {
-//            viewModel.netImages()
-//        }
+        viewModel.observeWord().observe(viewLifecycleOwner) {
+            viewModel.netImages()
+        }
 
         viewModel.observeImages().observe(viewLifecycleOwner) {
             adapter.submitList(it)

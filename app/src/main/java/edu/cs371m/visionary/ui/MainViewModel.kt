@@ -39,7 +39,7 @@ class MainViewModel : ViewModel() {
 
     fun netImages() {
         viewModelScope.launch(context = viewModelScope.coroutineContext + Dispatchers.IO) {
-            images.value = lexicaSearchApi.getImages(word.value as String).images.subList(0, 10)
+            images.postValue(lexicaSearchApi.getImages(word.value as String).images.subList(0, 10))
         }
     }
 
