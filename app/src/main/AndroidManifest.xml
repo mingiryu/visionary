@@ -33,6 +33,7 @@
         </activity>
 
         <activity android:name=".SingleImage"
+            android:theme="@style/AppTheme.NoActionBar"
             android:parentActivityName=".MainActivity">
         </activity>
     </application>

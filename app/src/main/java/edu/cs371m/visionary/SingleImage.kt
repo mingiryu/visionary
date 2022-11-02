@@ -4,8 +4,8 @@ import android.os.Bundle
 import android.text.method.ScrollingMovementMethod
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
+import com.squareup.picasso.Picasso
 import edu.cs371m.visionary.databinding.SingleImageBinding
-import edu.cs371m.visionary.glide.Glide
 
 class SingleImage  : AppCompatActivity()  {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -17,13 +17,14 @@ class SingleImage  : AppCompatActivity()  {
 
         val title = intent.extras!!.getString("title", "")
         val prompt = intent.extras!!.getString("prompt", "")
-        val src = intent.extras!!.getString("src", "")
         val srcSmall = intent.extras!!.getString("srcSmall", "")
 
         singleImageBinding.title.text = title
         singleImageBinding.prompt.text = prompt
         singleImageBinding.prompt.movementMethod = ScrollingMovementMethod()
-        Glide.glideFetch(src, srcSmall, singleImageBinding.image)
+        Picasso.get()
+            .load(srcSmall)
+            .into(singleImageBinding.image)
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {

@@ -1,7 +1,5 @@
 package edu.cs371m.visionary
 
-import android.content.Context
-import android.util.Log
 import androidx.lifecycle.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -17,8 +15,7 @@ class MainViewModel : ViewModel() {
 
     init {
         viewModelScope.launch {
-            val result = lexicaSearchApi.getImages("hello")
-            images.value = result.images.subList(0, 10)
+            images.value = lexicaSearchApi.getImages("food").images.subList(0, 10)
         }
     }
 
@@ -40,7 +37,7 @@ class MainViewModel : ViewModel() {
 
     fun netImages() {
         viewModelScope.launch(context = viewModelScope.coroutineContext + Dispatchers.IO) {
-            images.value = lexicaSearchApi.getImages(word.value as String).images
+            images.value = lexicaSearchApi.getImages(word.value as String).images.subList(0, 10)
         }
     }
 

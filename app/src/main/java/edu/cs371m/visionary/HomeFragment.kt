@@ -31,15 +31,15 @@ class HomeFragment: Fragment() {
 
     // Set up the adapter
     private fun initAdapter(binding: RecyclerViewBinding) : RowAdapter {
-        val postRowAdapter = RowAdapter(viewModel)
+        val rowAdapter = RowAdapter(viewModel)
         val recyclerView = binding.recyclerView
         val itemDecoration = DividerItemDecoration(recyclerView.context, LinearLayoutManager.VERTICAL)
 
-        recyclerView.adapter = postRowAdapter
+        recyclerView.adapter = rowAdapter
         recyclerView.layoutManager = LinearLayoutManager(context)
         recyclerView.addItemDecoration(itemDecoration)
 
-        return postRowAdapter
+        return rowAdapter
     }
 
     override fun onCreateView(
@@ -56,9 +56,9 @@ class HomeFragment: Fragment() {
         Log.d(javaClass.simpleName, "onViewCreated")
         val adapter = initAdapter(binding)
 
-        viewModel.observeWord().observe(viewLifecycleOwner) {
-            viewModel.netImages()
-        }
+//        viewModel.observeWord().observe(viewLifecycleOwner) {
+//            viewModel.netImages()
+//        }
 
         viewModel.observeImages().observe(viewLifecycleOwner) {
             adapter.submitList(it)

@@ -8,7 +8,6 @@ import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.FragmentTransaction
 import androidx.fragment.app.commit
-import com.bumptech.glide.Glide
 import edu.cs371m.visionary.databinding.ActivityMainBinding
 import edu.cs371m.visionary.databinding.ContentMainBinding
 
@@ -23,11 +22,9 @@ class MainActivity : AppCompatActivity() {
         setSupportActionBar(activityMainBinding.toolbar)
         binding = activityMainBinding.contentMain
 
-//        addHomeFragment()
+        addHomeFragment()
         textEditorAction()
         goButtonOnClick()
-
-        Glide.with(this).load("https://lexica-serve-encoded-images.sharif.workers.dev/sm/0482ee68-0368-4eca-8846-5930db866b33").into(binding.image)
     }
 
     private fun textEditorAction() {

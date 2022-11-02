@@ -6,8 +6,8 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.squareup.picasso.Picasso
 import edu.cs371m.visionary.databinding.RowBinding
-import edu.cs371m.visionary.glide.Glide
 
 class RowAdapter(private val viewModel: MainViewModel) :
     ListAdapter<LexicaSearchApi.Image, RowAdapter.VH>(ImageDiff()) {
@@ -40,13 +40,14 @@ class RowAdapter(private val viewModel: MainViewModel) :
         val binding = holder.binding
         val image = getItem(holder.adapterPosition)
 
-        Glide.glideFetch(image.src, image.srcSmall, binding.image)
+        Picasso.get()
+            .load(image.srcSmall)
+            .into(binding.image)
 
         binding.image.setOnClickListener {
             val intent = Intent(it.context, SingleImage::class.java)
 
-            intent.putExtra("prompt", image.prompt.toString())
-            intent.putExtra("src", image.src)
+            intent.putExtra("prompt", image.prompt)
             intent.putExtra("srcSmall", image.srcSmall)
 
             it.context.startActivity(intent)
