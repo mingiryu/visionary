@@ -10,6 +10,8 @@ import androidx.fragment.app.FragmentTransaction
 import androidx.fragment.app.commit
 import edu.cs371m.visionary.databinding.ActivityMainBinding
 import edu.cs371m.visionary.databinding.ContentMainBinding
+import edu.cs371m.visionary.ui.HomeFragment
+import edu.cs371m.visionary.ui.MainViewModel
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ContentMainBinding

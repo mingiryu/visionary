@@ -32,7 +32,7 @@
                 android:value="" />
         </activity>
 
-        <activity android:name=".SingleImage"
+        <activity android:name=".ui.SingleImage"
             android:theme="@style/AppTheme.NoActionBar"
             android:parentActivityName=".MainActivity">
         </activity>

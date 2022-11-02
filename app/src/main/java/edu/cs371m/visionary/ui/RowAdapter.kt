@@ -1,4 +1,4 @@
-package edu.cs371m.visionary
+package edu.cs371m.visionary.ui
 
 import android.content.Intent
 import android.view.LayoutInflater
@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.squareup.picasso.Picasso
+import edu.cs371m.visionary.api.LexicaSearchApi
 import edu.cs371m.visionary.databinding.RowBinding
 
 class RowAdapter(private val viewModel: MainViewModel) :

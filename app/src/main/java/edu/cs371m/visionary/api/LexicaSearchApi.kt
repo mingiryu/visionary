@@ -1,4 +1,4 @@
-package edu.cs371m.visionary
+package edu.cs371m.visionary.api
 
 import android.text.SpannableString
 import com.google.gson.*

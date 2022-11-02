@@ -1,6 +1,8 @@
-package edu.cs371m.visionary
+package edu.cs371m.visionary.ui
 
 import androidx.lifecycle.*
+import edu.cs371m.visionary.api.DictionaryApi
+import edu.cs371m.visionary.api.LexicaSearchApi
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 

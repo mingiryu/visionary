@@ -1,4 +1,4 @@
-package edu.cs371m.visionary
+package edu.cs371m.visionary.ui
 
 import android.os.Bundle
 import android.text.method.ScrollingMovementMethod
