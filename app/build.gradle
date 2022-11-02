@@ -3,6 +3,8 @@ plugins {
     id 'org.jetbrains.kotlin.android'
 }
 
+apply plugin: 'kotlin-kapt'
+
 android {
     namespace 'edu.cs371m.visionary'
     compileSdk 32
@@ -57,7 +59,13 @@ dependencies {
     implementation "androidx.lifecycle:lifecycle-livedata-ktx:2.5.1"
     implementation "androidx.fragment:fragment-ktx:1.5.4"
 
-    //add coroutines to the app
+    // Coroutines
     implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.1'
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.1"
+
+    // Glide
+    implementation 'com.github.bumptech.glide:glide:4.13.2'
+    kapt 'com.github.bumptech.glide:compiler:4.13.2'
+    kapt 'com.github.bumptech.glide:compiler:4.13.2'
+    kapt 'androidx.annotation:annotation:1.5.0'
 }
