@@ -1,7 +1,8 @@
-package edu.cs371m.visionary
+package edu.cs371m.visionary.ui
 
-import android.content.Context
 import androidx.lifecycle.*
+import edu.cs371m.visionary.api.DictionaryApi
+import edu.cs371m.visionary.api.LexicaSearchApi
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
@@ -12,11 +13,11 @@ class MainViewModel : ViewModel() {
     private val definitions = MutableLiveData<List<DictionaryApi.Definition>>()
     private val images = MutableLiveData<List<LexicaSearchApi.Image>>()
 
-    private var word  = MutableLiveData<String>()
+    private var word = MutableLiveData<String>()
 
     init {
         viewModelScope.launch {
-            // XXX: Is this needed?
+            images.value = lexicaSearchApi.getImages("food").images.subList(0, 10)
         }
     }
 
@@ -34,5 +35,17 @@ class MainViewModel : ViewModel() {
 
     fun setWord(newWord: String) {
         word.value = newWord
+    }
+
+    fun netImages() {
+        viewModelScope.launch(context = viewModelScope.coroutineContext + Dispatchers.IO) {
+            images.postValue(lexicaSearchApi.getImages(word.value as String).images.subList(0, 10))
+        }
+    }
+
+    fun netDefinitions() {
+        viewModelScope.launch(context = viewModelScope.coroutineContext + Dispatchers.IO) {
+            definitions.value = dictionaryApi.getWordDefinitions(word.value as String)
+        }
     }
 }

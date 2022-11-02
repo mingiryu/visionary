@@ -1,4 +1,4 @@
-package edu.cs371m.visionary
+package edu.cs371m.visionary.api
 
 import android.text.SpannableString
 import com.google.gson.*
@@ -62,9 +62,9 @@ interface LexicaSearchApi {
 
         private fun create(httpUrl: HttpUrl): LexicaSearchApi {
             val client = OkHttpClient.Builder().addInterceptor(HttpLoggingInterceptor().apply {
-                    // Enable basic HTTP logging to help with debugging.
-                    this.level = HttpLoggingInterceptor.Level.BASIC
-                }).build()
+                // Enable basic HTTP logging to help with debugging.
+                this.level = HttpLoggingInterceptor.Level.BASIC
+            }).build()
             return Retrofit.Builder().baseUrl(httpUrl).client(client)
                 .addConverterFactory(buildGsonConverterFactory()).build()
                 .create(LexicaSearchApi::class.java)

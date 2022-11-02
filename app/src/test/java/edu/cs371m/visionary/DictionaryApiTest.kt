@@ -1,5 +1,6 @@
 package edu.cs371m.visionary
 
+import edu.cs371m.visionary.api.DictionaryApi
 import kotlinx.coroutines.runBlocking
 import org.junit.Assert.assertEquals
 import org.junit.Before
