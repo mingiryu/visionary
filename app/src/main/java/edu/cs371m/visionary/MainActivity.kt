@@ -20,11 +20,11 @@ class MainActivity : AppCompatActivity() {
         setSupportActionBar(activityMainBinding.toolbar)
         binding = activityMainBinding.contentMain
 
-        editorAction()
-        goOnClick()
+        textEditorAction()
+        goButtonOnClick()
     }
 
-    private fun editorAction() {
+    private fun textEditorAction() {
         binding.wordET.setOnEditorActionListener { /*v*/_, actionId, event ->
             // If user has pressed enter, or if they hit the soft keyboard "send" button
             // (which sends DONE because of the XML)
@@ -36,7 +36,7 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun goOnClick() {
+    private fun goButtonOnClick() {
         binding.goBut.setOnClickListener {
             val word = binding.wordET.text.toString()
 
