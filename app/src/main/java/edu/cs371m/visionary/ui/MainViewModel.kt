@@ -17,7 +17,7 @@ class MainViewModel : ViewModel() {
 
     init {
         viewModelScope.launch {
-            images.value = lexicaSearchApi.getImages("food").images.subList(0, 10)
+            images.postValue(lexicaSearchApi.getImages("food").images.subList(0, 10))
         }
     }
 
@@ -45,7 +45,7 @@ class MainViewModel : ViewModel() {
 
     fun netDefinitions() {
         viewModelScope.launch(context = viewModelScope.coroutineContext + Dispatchers.IO) {
-            definitions.value = dictionaryApi.getWordDefinitions(word.value as String)
+            definitions.postValue(dictionaryApi.getWordDefinitions(word.value as String))
         }
     }
 }

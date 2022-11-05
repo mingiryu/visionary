@@ -3,14 +3,20 @@ package edu.cs371m.visionary
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
+import android.text.method.ScrollingMovementMethod
+import android.util.Log
 import android.view.KeyEvent
 import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
+import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.ActionBar
 import androidx.fragment.app.FragmentTransaction
 import androidx.fragment.app.commit
+import androidx.lifecycle.LifecycleOwner
+import androidx.lifecycle.Observer
+import edu.cs371m.visionary.api.DictionaryApi
 import edu.cs371m.visionary.databinding.ActivityMainBinding
 import edu.cs371m.visionary.databinding.ContentMainBinding
 import edu.cs371m.visionary.databinding.ActionBarBinding
@@ -70,15 +76,39 @@ class MainActivity : AppCompatActivity() {
         }
         binding = activityMainBinding.contentMain
 
-        addHomeFragment()
-        actionBarSearch()
+        // on click listener for search button
+        binding.searchButton.setOnClickListener {
+            hideKeyboard()
+            val word = binding.plainTextInput.text.toString()
+            if (word.isBlank()) {
+                val message = "Please enter a word into the text box"
+                Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
+            } else {
+                viewModel.setWord(word)
+                viewModel.netDefinitions()
+                viewModel.observeDefinitions().observe(this) {
+                    Log.d("dictapi", it.toString())
+                    var definitions = ""
+                    for(x in it[0].meanings[0].definitions) {
+                        definitions += x.definition
+                        definitions += "\n\n"
+                    }
+                    binding.about.movementMethod= ScrollingMovementMethod()
+                    binding.about.text = definitions
+                }
+
+            }
+         }
+
+//        addHomeFragment()
+//        actionBarSearch()
     }
 
 
     private fun addHomeFragment() {
         // No back stack for home
         supportFragmentManager.commit {
-            add(R.id.main_frame, HomeFragment.newInstance(), "mainFragTag")
+            // add(R.id.main_frame, HomeFragment.newInstance(), "mainFragTag")
             // TRANSIT_FRAGMENT_FADE calls for the Fragment to fade away
             setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
         }
