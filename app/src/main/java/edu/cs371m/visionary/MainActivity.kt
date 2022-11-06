@@ -79,6 +79,7 @@ class MainActivity : AppCompatActivity() {
         // on click listener for search button
         binding.searchButton.setOnClickListener {
             hideKeyboard()
+            binding.about.text = null
             val word = binding.plainTextInput.text.toString()
             if (word.isBlank()) {
                 val message = "Please enter a word into the text box"
@@ -89,9 +90,14 @@ class MainActivity : AppCompatActivity() {
                 viewModel.observeDefinitions().observe(this) {
                     Log.d("dictapi", it.toString())
                     var definitions = ""
-                    for(x in it[0].meanings[0].definitions) {
-                        definitions += x.definition
-                        definitions += "\n\n"
+                    if(it.isNullOrEmpty()) {
+                        // if the word has no definition
+                        definitions = "There are no definitions for this word."
+                    } else {
+                        for (x in it[0].meanings[0].definitions) {
+                            definitions += x.definition
+                            definitions += "\n\n"
+                        }
                     }
                     binding.about.movementMethod= ScrollingMovementMethod()
                     binding.about.text = definitions

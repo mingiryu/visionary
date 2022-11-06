@@ -1,16 +1,18 @@
 package edu.cs371m.visionary.ui
 
+import android.util.Log
 import androidx.lifecycle.*
 import edu.cs371m.visionary.api.DictionaryApi
 import edu.cs371m.visionary.api.LexicaSearchApi
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import retrofit2.HttpException
 
 class MainViewModel : ViewModel() {
     private val dictionaryApi = DictionaryApi.create()
     private val lexicaSearchApi = LexicaSearchApi.create()
 
-    private val definitions = MutableLiveData<List<DictionaryApi.Definition>>()
+    private val definitions = MutableLiveData<List<DictionaryApi.Definition>?>()
     private val images = MutableLiveData<List<LexicaSearchApi.Image>>()
 
     private var word = MutableLiveData<String>()
@@ -21,7 +23,7 @@ class MainViewModel : ViewModel() {
         }
     }
 
-    fun observeDefinitions(): LiveData<List<DictionaryApi.Definition>> {
+    fun observeDefinitions(): MutableLiveData<List<DictionaryApi.Definition>?> {
         return definitions
     }
 
@@ -45,7 +47,12 @@ class MainViewModel : ViewModel() {
 
     fun netDefinitions() {
         viewModelScope.launch(context = viewModelScope.coroutineContext + Dispatchers.IO) {
-            definitions.postValue(dictionaryApi.getWordDefinitions(word.value as String))
+            try {
+                definitions.postValue(dictionaryApi.getWordDefinitions(word.value as String))
+            } catch (e: HttpException) {
+                Log.d("retrofit", "word does not exist")
+                definitions.postValue(null)
+            }
         }
     }
 }
