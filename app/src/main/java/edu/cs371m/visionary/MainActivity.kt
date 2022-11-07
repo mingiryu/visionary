@@ -6,6 +6,7 @@ import android.text.TextWatcher
 import android.text.method.ScrollingMovementMethod
 import android.util.Log
 import android.view.KeyEvent
+import android.view.View
 import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
@@ -79,7 +80,7 @@ class MainActivity : AppCompatActivity() {
         // on click listener for search button
         binding.searchButton.setOnClickListener {
             hideKeyboard()
-            binding.about.text = null
+            binding.definition.text = null
             val word = binding.plainTextInput.text.toString()
             if (word.isBlank()) {
                 val message = "Please enter a word into the text box"
@@ -99,12 +100,31 @@ class MainActivity : AppCompatActivity() {
                             definitions += "\n\n"
                         }
                     }
-                    binding.about.movementMethod= ScrollingMovementMethod()
-                    binding.about.text = definitions
+                    // scrolling does not work as of now
+                    binding.definition.movementMethod= ScrollingMovementMethod()
+                    binding.definition.text = definitions
+
+                    // make clear and search image visible
+                    binding.clear.visibility = View.VISIBLE
+                    binding.searchImages.visibility = View.VISIBLE
                 }
 
             }
          }
+
+        if (binding.searchImages.visibility == View.VISIBLE) {
+            // search for images, new activity / fragment
+        }
+
+        // clear definition
+        binding.clear.setOnClickListener {
+            if (binding.searchImages.visibility == View.VISIBLE) {
+                binding.definition.text = null
+                binding.plainTextInput.text = null
+                binding.searchImages.visibility = View.INVISIBLE
+                binding.clear.visibility = View.INVISIBLE
+            }
+        }
 
 //        addHomeFragment()
 //        actionBarSearch()
