@@ -7,8 +7,9 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.squareup.picasso.Picasso
+import edu.cs371m.visionary.api.DictionaryApi
 import edu.cs371m.visionary.api.LexicaSearchApi
-import edu.cs371m.visionary.databinding.RowBinding
+import edu.cs371m.visionary.databinding.RowImageBinding
 
 class RowAdapter(private val viewModel: MainViewModel) :
     ListAdapter<LexicaSearchApi.Image, RowAdapter.VH>(ImageDiff()) {
@@ -29,11 +30,11 @@ class RowAdapter(private val viewModel: MainViewModel) :
         }
     }
 
-    inner class VH(val binding: RowBinding) : RecyclerView.ViewHolder(binding.root)
+    inner class VH(val binding: RowImageBinding) : RecyclerView.ViewHolder(binding.root)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): VH {
         val inflater = LayoutInflater.from(parent.context)
-        val binding = RowBinding.inflate(inflater, parent, false)
+        val binding = RowImageBinding.inflate(inflater, parent, false)
         return VH(binding)
     }
 

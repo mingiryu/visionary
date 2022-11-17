@@ -5,9 +5,7 @@ import android.text.Editable
 import android.text.TextWatcher
 import android.text.method.ScrollingMovementMethod
 import android.util.Log
-import android.view.KeyEvent
 import android.view.View
-import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import androidx.activity.viewModels
@@ -15,13 +13,13 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.ActionBar
 import androidx.fragment.app.FragmentTransaction
 import androidx.fragment.app.commit
-import androidx.lifecycle.LifecycleOwner
-import androidx.lifecycle.Observer
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import edu.cs371m.visionary.api.DictionaryApi
 import edu.cs371m.visionary.databinding.ActivityMainBinding
 import edu.cs371m.visionary.databinding.ContentMainBinding
 import edu.cs371m.visionary.databinding.ActionBarBinding
-import edu.cs371m.visionary.ui.HomeFragment
+import edu.cs371m.visionary.ui.DefinitionAdapter
 import edu.cs371m.visionary.ui.MainViewModel
 
 class MainActivity : AppCompatActivity() {
@@ -67,6 +65,17 @@ class MainActivity : AppCompatActivity() {
         })
     }
 
+    private fun initRecyclerView(activityMainBinding: ActivityMainBinding, definitions: List<DictionaryApi.MeaningDefinition>) {
+        // Define a layout for RecyclerView
+        val layoutManager = LinearLayoutManager(this)
+        activityMainBinding.contentMain.recyclerView.layoutManager = layoutManager
+
+        // Initialize a new instance of RecyclerView Adapter instance
+        val adapter = DefinitionAdapter(viewModel, definitions)
+        // Set the adapter for RecyclerView
+        activityMainBinding.contentMain.recyclerView.adapter = adapter
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         val activityMainBinding = ActivityMainBinding.inflate(layoutInflater)
@@ -95,13 +104,17 @@ class MainActivity : AppCompatActivity() {
                         // if the word has no definition
                         definitions = "There are no definitions for this word."
                     } else {
-                        for (x in it[0].meanings[0].definitions) {
-                            definitions += x.definition
-                            definitions += "\n\n"
-                        }
+                        // TODO: fix the height
+                        initRecyclerView(activityMainBinding, it[0].meanings[0].definitions)
+//                        for (x in it[0].meanings[0].definitions) {
+//                            definitions += x.definition
+//                            definitions += "\n\n"
+//                        }
                     }
+
                     // scrolling does not work as of now
-                    binding.definition.movementMethod= ScrollingMovementMethod()
+//                    binding.definition.movementMethod= ScrollingMovementMethod()
+                    // TODO: display no definition
                     binding.definition.text = definitions
 
                     // make clear and search image visible
@@ -117,8 +130,10 @@ class MainActivity : AppCompatActivity() {
         }
 
         // clear definition
+        // TODO: clear adapter
         binding.clear.setOnClickListener {
             if (binding.searchImages.visibility == View.VISIBLE) {
+
                 binding.definition.text = null
                 binding.plainTextInput.text = null
                 binding.searchImages.visibility = View.INVISIBLE
