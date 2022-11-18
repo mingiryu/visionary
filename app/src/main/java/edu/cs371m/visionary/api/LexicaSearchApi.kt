@@ -14,7 +14,7 @@ import java.lang.reflect.Type
 
 interface LexicaSearchApi {
 
-    @GET("api/v1/search")
+    @GET("api/v1/search?")
     suspend fun getImages(@Query("q") q: String): Images
 
     data class Images(

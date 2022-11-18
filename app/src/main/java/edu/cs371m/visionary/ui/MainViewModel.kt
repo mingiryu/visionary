@@ -5,6 +5,7 @@ import androidx.lifecycle.*
 import edu.cs371m.visionary.api.DictionaryApi
 import edu.cs371m.visionary.api.LexicaSearchApi
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import retrofit2.HttpException
 
@@ -16,6 +17,7 @@ class MainViewModel : ViewModel() {
     private val images = MutableLiveData<List<LexicaSearchApi.Image>>()
 
     private var word = MutableLiveData<String>()
+    private var definition = MutableLiveData<String>()
 
     init {
         viewModelScope.launch {
@@ -35,13 +37,28 @@ class MainViewModel : ViewModel() {
         return word
     }
 
+    fun observeDefinition(): LiveData<String> {
+        return definition
+    }
+
     fun setWord(newWord: String) {
         word.value = newWord
     }
 
+    fun setDefinition(newDefinition: String) {
+        Log.d("setting definition", newDefinition)
+        definition.value = newDefinition
+    }
+
     fun netImages() {
         viewModelScope.launch(context = viewModelScope.coroutineContext + Dispatchers.IO) {
-            images.postValue(lexicaSearchApi.getImages(word.value as String).images.subList(0, 10))
+            // delay(5000L)
+            try {
+                images.postValue(lexicaSearchApi.getImages(definition.value as String).images.subList(0, 10))
+            } catch (e: Exception) {
+                Log.d("retrofit", "$e")
+                definitions.postValue(null)
+            }
         }
     }
 

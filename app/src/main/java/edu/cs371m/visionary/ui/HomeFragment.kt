@@ -17,6 +17,7 @@ class HomeFragment: Fragment() {
     private var _binding: RecyclerViewBinding? = null
     // This property is only valid between onCreateView and onDestroyView.
     private val binding get() = _binding!!
+    private var definition: String? = null
 
     companion object {
         fun newInstance(): HomeFragment {
@@ -43,6 +44,8 @@ class HomeFragment: Fragment() {
         savedInstanceState: Bundle?
     ): View {
         _binding = RecyclerViewBinding.inflate(inflater, container, false)
+//        definition = requireArguments().getString("definition")
+//        viewModel.setDefinition(definition.toString())
         return binding.root
     }
 
@@ -50,10 +53,13 @@ class HomeFragment: Fragment() {
         super.onViewCreated(view, savedInstanceState)
         Log.d(javaClass.simpleName, "onViewCreated")
         val adapter = initAdapter(binding)
-
-        viewModel.observeWord().observe(viewLifecycleOwner) {
-            viewModel.netImages()
+        
+        // TODO: figure out why the definition is null
+        viewModel.observeDefinition().observe(viewLifecycleOwner) {
+            Log.d("inside frag", "hello $it")
         }
+
+        viewModel.netImages()
 
         viewModel.observeImages().observe(viewLifecycleOwner) {
             adapter.submitList(it)
