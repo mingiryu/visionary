@@ -44,8 +44,7 @@ class HomeFragment: Fragment() {
         savedInstanceState: Bundle?
     ): View {
         _binding = RecyclerViewBinding.inflate(inflater, container, false)
-//        definition = requireArguments().getString("definition")
-//        viewModel.setDefinition(definition.toString())
+        definition = requireArguments().getString("definition")
         return binding.root
     }
 
@@ -53,13 +52,12 @@ class HomeFragment: Fragment() {
         super.onViewCreated(view, savedInstanceState)
         Log.d(javaClass.simpleName, "onViewCreated")
         val adapter = initAdapter(binding)
-        
-        // TODO: figure out why the definition is null
-        viewModel.observeDefinition().observe(viewLifecycleOwner) {
-            Log.d("inside frag", "hello $it")
-        }
 
-        viewModel.netImages()
+        if(definition.isNullOrEmpty()) {
+            Log.d("Null", "No definition provided to search for images")
+        } else {
+            viewModel.netImages(definition!!)
+        }
 
         viewModel.observeImages().observe(viewLifecycleOwner) {
             adapter.submitList(it)

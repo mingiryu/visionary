@@ -4,8 +4,10 @@ import android.os.Bundle
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.FragmentTransaction
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.commit
 import edu.cs371m.visionary.ui.HomeFragment
+import edu.cs371m.visionary.ui.MainViewModel
 
 // TODO: add back button and/or theme
 class ImageActivity : AppCompatActivity() {
@@ -14,10 +16,10 @@ class ImageActivity : AppCompatActivity() {
         private const val mainFragTag = "mainFragTag"
     }
 
-    private fun addHomeFragment() {
+    private fun addHomeFragment(definition: String) {
         // No back stack for home
         val bundle = Bundle()
-        // bundle.putString("definition", definition)
+        bundle.putString("definition", definition)
         val fragment = HomeFragment.newInstance()
         fragment.arguments = bundle
         supportFragmentManager.commit {
@@ -32,7 +34,7 @@ class ImageActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.image_main)
         Log.d("activity", "inside ImageActivity")
-        // val definition = intent.getStringExtra("definition")
-        addHomeFragment()
+        val definition = intent.getStringExtra("definition")
+        addHomeFragment(definition!!)
     }
 }

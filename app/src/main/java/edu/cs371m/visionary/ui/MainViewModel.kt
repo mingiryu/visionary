@@ -19,11 +19,11 @@ class MainViewModel : ViewModel() {
     private var word = MutableLiveData<String>()
     private var definition = MutableLiveData<String>()
 
-    init {
-        viewModelScope.launch {
-            images.postValue(lexicaSearchApi.getImages("food").images.subList(0, 10))
-        }
-    }
+//    init {
+//        viewModelScope.launch {
+//            images.postValue(lexicaSearchApi.getImages("food").images.subList(0, 10))
+//        }
+//    }
 
     fun observeDefinitions(): MutableLiveData<List<DictionaryApi.Definition>?> {
         return definitions
@@ -50,11 +50,10 @@ class MainViewModel : ViewModel() {
         definition.value = newDefinition
     }
 
-    fun netImages() {
+    fun netImages(definition: String) {
         viewModelScope.launch(context = viewModelScope.coroutineContext + Dispatchers.IO) {
-            // delay(5000L)
             try {
-                images.postValue(lexicaSearchApi.getImages(definition.value as String).images.subList(0, 10))
+                images.postValue(lexicaSearchApi.getImages(definition).images.subList(0, 50))
             } catch (e: Exception) {
                 Log.d("retrofit", "$e")
                 definitions.postValue(null)

@@ -1,5 +1,7 @@
 package edu.cs371m.visionary
 
+import android.content.ActivityNotFoundException
+import android.content.Intent
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
@@ -86,6 +88,7 @@ class MainActivity : AppCompatActivity() {
         }
         binding = activityMainBinding.contentMain
 
+        // TODO: Recycler view works, but I'm initializing it every time we click search. Can we initialize it once and update data?
         // on click listener for search button
         binding.searchButton.setOnClickListener {
             hideKeyboard()
@@ -103,56 +106,38 @@ class MainActivity : AppCompatActivity() {
                     if(it.isNullOrEmpty()) {
                         // if the word has no definition
                         definitions = "There are no definitions for this word."
+                        binding.click.visibility = View.INVISIBLE
+                        binding.recyclerView.visibility = View.INVISIBLE
                     } else {
                         // TODO: fix the height
                         initRecyclerView(activityMainBinding, it[0].meanings[0].definitions)
-//                        for (x in it[0].meanings[0].definitions) {
-//                            definitions += x.definition
-//                            definitions += "\n\n"
-//                        }
+                        binding.click.visibility = View.VISIBLE
+                        binding.recyclerView.visibility = View.VISIBLE
                     }
 
                     // scrolling does not work as of now
-//                    binding.definition.movementMethod= ScrollingMovementMethod()
-                    // TODO: display no definition
                     binding.definition.text = definitions
-
                     // make clear and search image visible
                     binding.clear.visibility = View.VISIBLE
-                    binding.searchImages.visibility = View.VISIBLE
+
                 }
 
             }
+
          }
 
-        if (binding.searchImages.visibility == View.VISIBLE) {
-            // search for images, new activity / fragment
-        }
 
         // clear definition
-        // TODO: clear adapter
         binding.clear.setOnClickListener {
-            if (binding.searchImages.visibility == View.VISIBLE) {
-
+            if (binding.clear.visibility == View.VISIBLE) {
                 binding.definition.text = null
                 binding.plainTextInput.text = null
-                binding.searchImages.visibility = View.INVISIBLE
                 binding.clear.visibility = View.INVISIBLE
+                binding.recyclerView.visibility = View.INVISIBLE
+                binding.click.visibility = View.INVISIBLE
             }
         }
 
-//        addHomeFragment()
-//        actionBarSearch()
-    }
-
-
-    private fun addHomeFragment() {
-        // No back stack for home
-        supportFragmentManager.commit {
-            // add(R.id.main_frame, HomeFragment.newInstance(), "mainFragTag")
-            // TRANSIT_FRAGMENT_FADE calls for the Fragment to fade away
-            setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
-        }
     }
 
 

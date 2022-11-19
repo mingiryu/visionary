@@ -40,7 +40,7 @@ class DefinitionAdapter(private val viewModel: MainViewModel, private val defini
         binding.root.setOnClickListener {
             Log.d("adapter", "starting new activity")
             val sendIntent = Intent(it.context, ImageActivity::class.java)
-            // sendIntent.putExtra("definition", binding.definition.text)
+            sendIntent.putExtra("definition", binding.definition.text)
             viewModel.setDefinition(definitions[position].definition)
             // Try to invoke the intent.
             try {
