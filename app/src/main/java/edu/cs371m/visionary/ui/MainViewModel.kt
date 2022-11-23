@@ -5,7 +5,6 @@ import androidx.lifecycle.*
 import edu.cs371m.visionary.api.DictionaryApi
 import edu.cs371m.visionary.api.LexicaSearchApi
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import retrofit2.HttpException
 
