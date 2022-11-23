@@ -12,14 +12,10 @@ class SingleImage  : AppCompatActivity()  {
         super.onCreate(savedInstanceState)
         val singleImageBinding = SingleImageBinding.inflate(layoutInflater)
         setContentView(singleImageBinding.root)
-        setSupportActionBar(singleImageBinding.toolbar)
-        supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
-        val title = intent.extras!!.getString("title", "")
         val prompt = intent.extras!!.getString("prompt", "")
         val srcSmall = intent.extras!!.getString("srcSmall", "")
 
-        singleImageBinding.title.text = title
         singleImageBinding.prompt.text = prompt
         singleImageBinding.prompt.movementMethod = ScrollingMovementMethod()
         Picasso.get()
