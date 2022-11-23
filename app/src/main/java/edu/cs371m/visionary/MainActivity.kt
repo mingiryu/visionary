@@ -83,9 +83,7 @@ class MainActivity : AppCompatActivity() {
         val activityMainBinding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(activityMainBinding.root)
         setSupportActionBar(activityMainBinding.toolbar)
-        supportActionBar?.let {
-            initActionBar(it)
-        }
+
         binding = activityMainBinding.contentMain
 
         // TODO: Recycler view works, but I'm initializing it every time we click search. Can we initialize it once and update data?
