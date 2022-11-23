@@ -1,17 +1,12 @@
 package edu.cs371m.visionary.ui
 
 import android.content.ActivityNotFoundException
-import android.content.Context
 import android.content.Intent
-import android.inputmethodservice.Keyboard.Row
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import android.widget.ListAdapter
-import androidx.core.content.ContextCompat.startActivity
 import androidx.recyclerview.widget.RecyclerView
 import edu.cs371m.visionary.ImageActivity
-import edu.cs371m.visionary.MainActivity
 import edu.cs371m.visionary.api.DictionaryApi
 import edu.cs371m.visionary.databinding.RowDefinitionBinding
 
