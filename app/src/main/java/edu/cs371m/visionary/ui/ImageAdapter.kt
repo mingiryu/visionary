@@ -10,8 +10,8 @@ import com.squareup.picasso.Picasso
 import edu.cs371m.visionary.api.LexicaSearchApi
 import edu.cs371m.visionary.databinding.RowImageBinding
 
-class RowAdapter(private val viewModel: MainViewModel) :
-    ListAdapter<LexicaSearchApi.Image, RowAdapter.VH>(ImageDiff()) {
+class ImageAdapter(private val viewModel: MainViewModel) :
+    ListAdapter<LexicaSearchApi.Image, ImageAdapter.VH>(ImageDiff()) {
 
     class ImageDiff : DiffUtil.ItemCallback<LexicaSearchApi.Image>() {
         override fun areItemsTheSame(

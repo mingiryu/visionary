@@ -1,21 +1,16 @@
 package edu.cs371m.visionary
 
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
-import edu.cs371m.visionary.api.DictionaryApi
 import edu.cs371m.visionary.databinding.ActivityMainBinding
 import edu.cs371m.visionary.databinding.ContentMainBinding
-import edu.cs371m.visionary.databinding.RecyclerViewBinding
 import edu.cs371m.visionary.ui.DefinitionAdapter
 import edu.cs371m.visionary.ui.MainViewModel
-import edu.cs371m.visionary.ui.RowAdapter
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ContentMainBinding

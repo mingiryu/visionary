@@ -26,16 +26,16 @@ class HomeFragment: Fragment() {
     }
 
     // Set up the adapter
-    private fun initAdapter(binding: RecyclerViewBinding) : RowAdapter {
-        val rowAdapter = RowAdapter(viewModel)
+    private fun initAdapter(binding: RecyclerViewBinding) : ImageAdapter {
+        val imageAdapter = ImageAdapter(viewModel)
         val recyclerView = binding.recyclerView
         val itemDecoration = DividerItemDecoration(recyclerView.context, LinearLayoutManager.VERTICAL)
 
-        recyclerView.adapter = rowAdapter
+        recyclerView.adapter = imageAdapter
         recyclerView.layoutManager = LinearLayoutManager(context)
         recyclerView.addItemDecoration(itemDecoration)
 
-        return rowAdapter
+        return imageAdapter
     }
 
     override fun onCreateView(
