@@ -7,7 +7,6 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.squareup.picasso.Picasso
-import edu.cs371m.visionary.api.DictionaryApi
 import edu.cs371m.visionary.api.LexicaSearchApi
 import edu.cs371m.visionary.databinding.RowImageBinding
 

@@ -17,12 +17,6 @@ interface DictionaryApi {
     @GET("api/v2/entries/en/{word}")
     suspend fun getWordDefinitions(@Path("word") word: String): List<Definition>
 
-//    data class Notfound(
-//        @SerializedName("title") val title: String,
-//        @SerializedName("message") val message: String,
-//        @SerializedName("resolution") val resolution: String
-//    )
-
     data class Definition(
         @SerializedName("word") val word: String,
         @SerializedName("phonetics") val phonetics: List<Phonetic>,

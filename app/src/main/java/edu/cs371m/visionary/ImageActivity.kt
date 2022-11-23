@@ -4,12 +4,9 @@ import android.os.Bundle
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.FragmentTransaction
-import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.commit
 import edu.cs371m.visionary.ui.HomeFragment
-import edu.cs371m.visionary.ui.MainViewModel
 
-// TODO: add back button and/or theme
 class ImageActivity : AppCompatActivity() {
 
     companion object {
