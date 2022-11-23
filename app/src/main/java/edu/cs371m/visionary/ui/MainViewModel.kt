@@ -13,6 +13,7 @@ class MainViewModel : ViewModel() {
     private val lexicaSearchApi = LexicaSearchApi.create()
 
     private val definitions = MutableLiveData<List<DictionaryApi.Definition>?>()
+    private val meaningDefinitions = MutableLiveData<List<DictionaryApi.MeaningDefinition>?>()
     private val images = MutableLiveData<List<LexicaSearchApi.Image>>()
 
     private var word = MutableLiveData<String>()
@@ -20,6 +21,10 @@ class MainViewModel : ViewModel() {
 
     fun observeDefinitions(): MutableLiveData<List<DictionaryApi.Definition>?> {
         return definitions
+    }
+
+    fun observeMeaningDefinitions(): MutableLiveData<List<DictionaryApi.MeaningDefinition>?> {
+        return meaningDefinitions
     }
 
     fun observeImages(): LiveData<List<LexicaSearchApi.Image>> {
@@ -57,7 +62,9 @@ class MainViewModel : ViewModel() {
     fun netDefinitions() {
         viewModelScope.launch(context = viewModelScope.coroutineContext + Dispatchers.IO) {
             try {
-                definitions.postValue(dictionaryApi.getWordDefinitions(word.value as String))
+                val result: List<DictionaryApi.Definition> = dictionaryApi.getWordDefinitions(word.value as String)
+                definitions.postValue(result)
+                meaningDefinitions.postValue(result[0].meanings[0].definitions)
             } catch (e: HttpException) {
                 Log.d("retrofit", "word does not exist")
                 definitions.postValue(null)
