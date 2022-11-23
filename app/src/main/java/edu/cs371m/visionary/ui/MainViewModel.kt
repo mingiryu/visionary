@@ -1,7 +1,10 @@
 package edu.cs371m.visionary.ui
 
 import android.util.Log
-import androidx.lifecycle.*
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import edu.cs371m.visionary.api.DictionaryApi
 import edu.cs371m.visionary.api.LexicaSearchApi
 import kotlinx.coroutines.Dispatchers
@@ -62,11 +65,15 @@ class MainViewModel : ViewModel() {
     fun netDefinitions() {
         viewModelScope.launch(context = viewModelScope.coroutineContext + Dispatchers.IO) {
             try {
-                val result: List<DictionaryApi.Definition> = dictionaryApi.getWordDefinitions(word.value as String)
+                val result: List<DictionaryApi.Definition> =
+                    dictionaryApi.getWordDefinitions(word.value as String)
+
                 definitions.postValue(result)
+                // XXX: Flatten meanings definitions list instead of only selecting the first
                 meaningDefinitions.postValue(result[0].meanings[0].definitions)
             } catch (e: HttpException) {
                 Log.d("retrofit", "word does not exist")
+
                 definitions.postValue(null)
                 meaningDefinitions.postValue(null)
             }
