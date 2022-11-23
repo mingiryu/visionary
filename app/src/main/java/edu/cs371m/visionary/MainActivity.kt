@@ -1,22 +1,13 @@
 package edu.cs371m.visionary
 
-import android.content.ActivityNotFoundException
-import android.content.Intent
 import android.os.Bundle
-import android.text.Editable
-import android.text.TextWatcher
-import android.text.method.ScrollingMovementMethod
 import android.util.Log
 import android.view.View
 import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import androidx.appcompat.app.ActionBar
-import androidx.fragment.app.FragmentTransaction
-import androidx.fragment.app.commit
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import edu.cs371m.visionary.api.DictionaryApi
 import edu.cs371m.visionary.databinding.ActivityMainBinding
 import edu.cs371m.visionary.databinding.ContentMainBinding
@@ -27,7 +18,6 @@ import edu.cs371m.visionary.ui.MainViewModel
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ContentMainBinding
     private val viewModel: MainViewModel by viewModels()
-    private var actionBarBinding: ActionBarBinding? = null
 
     // An Android nightmare
     // https://stackoverflow.com/questions/1109022/close-hide-the-android-soft-keyboard
