@@ -19,12 +19,6 @@ class MainViewModel : ViewModel() {
     private var word = MutableLiveData<String>()
     private var definition = MutableLiveData<String>()
 
-//    init {
-//        viewModelScope.launch {
-//            images.postValue(lexicaSearchApi.getImages("food").images.subList(0, 10))
-//        }
-//    }
-
     fun observeDefinitions(): MutableLiveData<List<DictionaryApi.Definition>?> {
         return definitions
     }

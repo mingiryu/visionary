@@ -37,36 +37,6 @@ class MainActivity : AppCompatActivity() {
         imm.hideSoftInputFromWindow(window.decorView.rootView.windowToken, 0)
     }
 
-    // https://stackoverflow.com/questions/24838155/set-onclick-listener-on-action-bar-title-in-android/29823008#29823008
-    private fun initActionBar(actionBar: ActionBar) {
-        // Disable the default and enable the custom
-        actionBar.setDisplayShowTitleEnabled(false)
-        actionBar.setDisplayShowCustomEnabled(true)
-        actionBarBinding = ActionBarBinding.inflate(layoutInflater)
-        // Apply the custom view
-        actionBar.customView = actionBarBinding?.root
-    }
-
-    // XXX check out addTextChangedListener
-    private fun actionBarSearch() {
-        // XXX Write me
-        actionBarBinding?.actionSearch?.addTextChangedListener(object : TextWatcher {
-            override fun afterTextChanged(p0: Editable?) {
-            }
-
-            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-            }
-
-            override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-                val text = p0.toString()
-                if (text.isEmpty()) {
-                    hideKeyboard()
-                }
-                viewModel.setWord(text)
-            }
-        })
-    }
-
     private fun initRecyclerView(activityMainBinding: ActivityMainBinding, definitions: List<DictionaryApi.MeaningDefinition>) {
         // Define a layout for RecyclerView
         val layoutManager = LinearLayoutManager(this)
