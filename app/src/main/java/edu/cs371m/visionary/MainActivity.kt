@@ -81,11 +81,9 @@ class MainActivity : AppCompatActivity() {
         initClearDefinition()
 
         viewModel.observeMeaningDefinitions().observe(this) {
-            var definitions = ""
-
             if(it.isNullOrEmpty()) {
                 // if the word has no definition
-                definitions = "There are no definitions for this word."
+                binding.definition.text = "There are no definitions for this word."
                 binding.click.visibility = View.INVISIBLE
                 binding.recyclerView.visibility = View.INVISIBLE
             } else {
@@ -94,8 +92,6 @@ class MainActivity : AppCompatActivity() {
                 binding.recyclerView.visibility = View.VISIBLE
             }
 
-            // scrolling does not work as of now
-            binding.definition.text = definitions
             // make clear and search image visible
             binding.clear.visibility = View.VISIBLE
         }

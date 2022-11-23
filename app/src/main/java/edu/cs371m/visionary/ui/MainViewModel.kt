@@ -68,6 +68,7 @@ class MainViewModel : ViewModel() {
             } catch (e: HttpException) {
                 Log.d("retrofit", "word does not exist")
                 definitions.postValue(null)
+                meaningDefinitions.postValue(null)
             }
         }
     }
