@@ -87,7 +87,7 @@ class MainActivity : AppCompatActivity() {
                 binding.recyclerView.visibility = View.VISIBLE
             }
 
-            // make clear and search image visible
+            // Change clear and search buttons visibility
             binding.clear.visibility = View.VISIBLE
         }
     }
