@@ -11,7 +11,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import edu.cs371m.visionary.api.DictionaryApi
 import edu.cs371m.visionary.databinding.ActivityMainBinding
 import edu.cs371m.visionary.databinding.ContentMainBinding
-import edu.cs371m.visionary.databinding.ActionBarBinding
 import edu.cs371m.visionary.ui.DefinitionAdapter
 import edu.cs371m.visionary.ui.MainViewModel
 
@@ -84,7 +83,6 @@ class MainActivity : AppCompatActivity() {
 
          }
 
-
         // clear definition
         binding.clear.setOnClickListener {
             if (binding.clear.visibility == View.VISIBLE) {
@@ -97,6 +95,4 @@ class MainActivity : AppCompatActivity() {
         }
 
     }
-
-
 }
