@@ -20,6 +20,18 @@
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <TextView
+        android:id="@+id/subtitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="8dp"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:text="A Visual Dictionary"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/title" />
+
     <EditText
         android:id="@+id/plain_text_input"
         android:layout_width="match_parent"
@@ -28,7 +40,7 @@
         android:background="@drawable/edit_text_border"
         android:inputType="text"
         android:textSize="24sp"
-        app:layout_constraintTop_toBottomOf="@id/title" />
+        app:layout_constraintTop_toBottomOf="@id/subtitle" />
 
     <Button
         android:id="@+id/search_button"
