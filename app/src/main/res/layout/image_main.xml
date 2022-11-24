@@ -12,7 +12,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="20dp"
-        android:textSize="24sp"
+        android:textSize="18sp"
         android:textStyle="bold"
         android:text="Loading..."
         app:layout_constraintLeft_toLeftOf="parent"
