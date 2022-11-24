@@ -1,7 +1,9 @@
 package edu.cs371m.visionary
 
+import android.R
 import android.os.Bundle
 import android.util.Log
+import android.view.MenuItem
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -47,5 +49,13 @@ class ImageActivity : AppCompatActivity() {
         viewModel.observeImages().observe(this) {
             imageAdapter.submitList(it)
         }
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        if (item.itemId == R.id.home) {
+            super.onBackPressed()
+            return true
+        }
+        return super.onOptionsItemSelected(item)
     }
 }
