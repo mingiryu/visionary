@@ -38,6 +38,9 @@
         <activity android:name=".ImageActivity"
             android:parentActivityName=".MainActivity"/>
 
+        <activity android:name=".DefinitionActivity"
+            android:parentActivityName=".MainActivity"/>
+
     </application>
 
 </manifest>
