@@ -1,41 +1,61 @@
 package edu.cs371m.visionary
 
+import android.R
 import android.os.Bundle
 import android.util.Log
+import android.view.MenuItem
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import androidx.fragment.app.FragmentTransaction
-import androidx.fragment.app.commit
-import edu.cs371m.visionary.ui.HomeFragment
+import androidx.recyclerview.widget.LinearLayoutManager
+import edu.cs371m.visionary.databinding.ImageMainBinding
+import edu.cs371m.visionary.ui.ImageAdapter
+import edu.cs371m.visionary.ui.MainViewModel
 
 class ImageActivity : AppCompatActivity() {
+    private lateinit var binding: ImageMainBinding
+    private val viewModel: MainViewModel by viewModels()
 
-    companion object {
-        private const val mainFragTag = "mainFragTag"
-    }
+    private fun initRecyclerView(binding: ImageMainBinding): ImageAdapter {
+        val imageAdapter = ImageAdapter(viewModel)
+        val recyclerView = binding.recyclerView
 
-    private fun addHomeFragment(definition: String) {
-        // No back stack for home
-        val bundle = Bundle()
-        bundle.putString("definition", definition)
+        recyclerView.adapter = imageAdapter
+        recyclerView.layoutManager = LinearLayoutManager(this)
 
-        val fragment = HomeFragment.newInstance()
-        fragment.arguments = bundle
-
-        supportFragmentManager.commit {
-            add(R.id.main_frame, fragment, mainFragTag)
-            // TRANSIT_FRAGMENT_FADE calls for the Fragment to fade away
-            setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
-            addToBackStack(null)
-        }
+        return imageAdapter
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.image_main)
+        val definitionMainBinding = ImageMainBinding.inflate(layoutInflater)
+        setContentView(definitionMainBinding.root)
+        binding = definitionMainBinding
 
-        Log.d("activity", "inside ImageActivity")
+        val imageAdapter = initRecyclerView(binding)
 
-        val definition = intent.getStringExtra("definition")
-        addHomeFragment(definition!!)
+        val definition = intent.extras!!.getString("definition", "")
+        viewModel.setDefinition(definition)
+
+        if (definition.isNullOrEmpty()) {
+            Log.d("Null", "No definition provided to search for images")
+        } else {
+            viewModel.netImages(definition)
+        }
+
+        viewModel.observeDefinition().observe(this) {
+            binding.definition.text = it
+        }
+
+        viewModel.observeImages().observe(this) {
+            imageAdapter.submitList(it)
+        }
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        if (item.itemId == R.id.home) {
+            super.onBackPressed()
+            return true
+        }
+        return super.onOptionsItemSelected(item)
     }
 }

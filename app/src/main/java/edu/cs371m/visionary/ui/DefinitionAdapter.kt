@@ -49,8 +49,6 @@ class DefinitionAdapter(private val viewModel: MainViewModel) :
             val sendIntent = Intent(it.context, ImageActivity::class.java)
             sendIntent.putExtra("definition", binding.definition.text)
 
-            viewModel.setDefinition(definition.definition)
-
             // Try to invoke the intent.
             try {
                 it.context.startActivity(sendIntent)

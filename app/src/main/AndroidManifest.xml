@@ -2,7 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.INTERNET" />
 
     <application
@@ -31,13 +31,17 @@
                 android:value="" />
         </activity>
 
-        <activity android:name=".ui.SingleImage"
-            android:parentActivityName=".MainActivity">
-        </activity>
+        <activity
+            android:name=".DefinitionActivity"
+            android:parentActivityName=".MainActivity" />
 
-        <activity android:name=".ImageActivity"
-            android:parentActivityName=".MainActivity"/>
+        <activity
+            android:name=".ImageActivity"
+            android:parentActivityName=".DefinitionActivity" />
+
+        <activity
+            android:name=".ui.SingleImage"
+            android:parentActivityName=".ImageActivity" />
 
     </application>
-
 </manifest>
