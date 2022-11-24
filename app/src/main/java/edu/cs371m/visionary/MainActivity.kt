@@ -4,15 +4,12 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
-import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import edu.cs371m.visionary.databinding.ActivityMainBinding
 import edu.cs371m.visionary.databinding.ContentMainBinding
-import edu.cs371m.visionary.ui.MainViewModel
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ContentMainBinding
-    private val viewModel: MainViewModel by viewModels()
 
     // An Android nightmare
     // https://stackoverflow.com/questions/1109022/close-hide-the-android-soft-keyboard
@@ -22,7 +19,7 @@ class MainActivity : AppCompatActivity() {
         imm.hideSoftInputFromWindow(window.decorView.rootView.windowToken, 0)
     }
 
-    private fun initSearchDefinition() {
+    private fun initSearch() {
         binding.searchButton.setOnClickListener {
             hideKeyboard()
 
@@ -45,6 +42,6 @@ class MainActivity : AppCompatActivity() {
         setContentView(activityMainBinding.root)
         binding = activityMainBinding.contentMain
 
-        initSearchDefinition()
+        initSearch()
     }
 }
