@@ -10,7 +10,7 @@ At the moment, an unsigned APK for debug purposes can be found on GitHub [Releas
 
 ## Build
 
-For Android Studio, import the project directly from the GitHub or a local copy of the repository. Then [run or build](https://developer.android.com/studio/run) the project.
+For Android Studio, import the project directly from GitHub or a local copy of the repository. Then [run or build](https://developer.android.com/studio/run) the project.
 
 Otherwise, build from the command line with [Gradle](https://developer.android.com/sdk/installing/studio-build.html)
 
